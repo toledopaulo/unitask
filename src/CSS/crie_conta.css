@@ -1,0 +1,211 @@
+:root {
+    --main-color: white;
+    --main-font: 'Montserrat', sans-serif;
+    --main-background: linear-gradient(to right, #540BA3, #DD3F8B);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--main-font);
+   /* background: linear-gradient(to right, #540BA3, #DD3F8B); */
+}
+
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+aside {
+    display: flex;
+    width: 65%;
+    height: 100%;
+    background-color: #f0f0f0;
+    padding-left: 30px;
+    box-sizing: border-box;
+    background: var(--main-background);
+    align-items: center;
+}
+
+h1{
+font-size: 3.5rem;
+line-height: 1.8;
+color: white;
+letter-spacing: 0.3rem;
+font-weight: 600;
+}
+
+.div_foto{
+    display: flex;
+    height: 25%;
+}
+
+.logounitask{
+margin-left: auto;
+margin-top: 20px;
+margin-right: 20px;
+}
+
+main {
+    flex-direction: column;
+    width: 35%;
+    height: calc(100% - 50px);
+    display: flex;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    
+}
+
+.div_main{
+    display: flex;
+    justify-content: center;
+    padding-top: 30%;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    padding-bottom: 5%;
+}
+
+
+/* formulario */
+
+form {
+    max-width: 400px;
+    margin-left: 70px;
+    padding: 0;
+    ;
+    overflow: hidden;
+   
+}
+
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #8C8C8C;
+    border-radius: 5px;
+    font-family: var(--main-font);
+    background-color: #EFEDF0;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1)
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    aside {
+        display: flex;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 2rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+    }
+
+    .div_foto {
+        margin-top: 20px;
+    }
+
+    
+    h2 {
+        font-size: 1.5rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    form {
+        margin-left: 0;
+        
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        width: auto;
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    main{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    h2 {
+        padding:0;
+        font-size: 2.5rem;
+        margin-left: 0;
+        text-align: center;
+    }
+
+}
+
+@media (max-width: 480px) {
+    main{
+        display: flex;
+        padding-left: 30px;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+    }
+
+}

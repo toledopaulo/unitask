@@ -1,0 +1,295 @@
+:root {
+    --main-color: white;
+    --main-font: 'Montserrat', sans-serif;
+    --main-background: linear-gradient(to right, #540BA3, #DD3F8B);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--main-font);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 62px;
+    background-color: #ffffff; /* Adicione uma cor de fundo para a navegação */
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 62px); /* Ajusta a altura menos a altura da barra de navegação */
+}
+
+aside {
+    overflow-y: scroll;
+    width: 30%;
+    background-color: #861E9A; /* Cor de fundo para visualizar o aside */
+    padding: 10px;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow-x: hidden;
+    
+}
+
+aside::-webkit-scrollbar {
+    width: 15px;               /* width of the entire scrollbar */
+  }
+  
+aside::-webkit-scrollbar-track {
+    background: #861E9A;        /* color of the tracking area */
+  }
+  
+aside::-webkit-scrollbar-thumb {
+    background-color: rgb(253, 253, 253);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 4px solid #861E9A;  /* creates padding around scroll thumb */
+  }
+
+.div_andamento{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    border-radius: 5px;
+}
+
+.div_botoes{
+    display: flex;
+    align-items: flex-end;
+    margin: 5px;
+    gap: 2px;
+   
+}
+
+.excluir {
+    background-color: red;
+    border-radius: 5px;
+    border: 0.2px solid #000000;
+    width: 25px;
+    height: 20px;
+    font-weight: 300;
+    opacity: 85%;
+   
+    
+}
+
+.concluir{
+    background-color: #3CFF2C;
+    border-radius: 5px;
+    border: 0.2px solid #000000;
+    text-align: center;
+    width: 25px;
+    height: 20px;
+    font-weight: 600;
+    opacity: 85%;
+}
+
+.div_concluido{
+    display: flex;
+    background-color: #E7D2EB;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.div_botaoconcluido{
+    display: flex;
+    align-items: flex-end;
+}
+.div_botaoconcluido p{
+    margin: 0;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+main {
+    padding-left: 15px;
+    padding-right: 10px;
+    width: 70%;
+    
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Garantir que o conteúdo esteja distribuído verticalmente */
+}
+
+.div_main{
+    display: flex;
+    flex-direction: column;
+    height: 410px;
+    justify-content: center;
+    background: var(--main-background);
+    padding-left: 30px;
+    color: white;
+
+}
+
+h1 {
+    font-size: 2.5rem;
+    
+    
+}
+
+h2{
+    margin:0;
+    
+}
+
+.escreva_tarefa{
+    margin-top: 50px;
+    width: 602px;
+}
+
+.escreva_tarefa input[type="text"] {
+    width: 462px;
+    height: 42px;
+    margin-bottom: 10px; /* Ajuste conforme necessário */
+    border: 1px solid #ccc; /* Exemplo de estilo de borda */
+    border-radius: 5px; /* Exemplo de estilo de border radius */
+    padding: 5px; /* Espaçamento interno */
+    box-sizing: border-box; /* Garante que a largura inclua bordas e preenchimento */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombreamento */
+}
+
+section {
+    display: flex;
+    background-color: #ffffff; /* Cor de fundo para visualizar a seção */
+    padding: 10px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    
+    
+    
+}
+
+.tarefa_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    height: 140px;
+    width: 240px;
+    color: black;
+    background-color: #D9D9D9;
+    font-size: 0.9rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    
+}
+.numero {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column-reverse;
+    }
+   
+    nav{
+        margin-bottom: 10px;
+    }
+    aside {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    main {
+        width: 100%;
+        padding:0;
+    }
+
+    section{
+    display: flex;
+    }
+
+   
+
+    .tarefa_container{
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        height: 100px;
+        width: 100px;
+       
+    }
+
+    h3{
+        text-align: center;
+        padding-left: 0px;
+        padding-top: 23px;
+        margin:0;
+        display: flex;
+        flex-grow: 2;
+        font-size: 0.8rem;
+    }
+    
+    .escreva_tarefa input[type="text"] {
+        width: 200px;
+        height: 42px;
+    }
+}
+
+@media (min-width: 900px) {
+    .container {
+        flex-direction: row;
+    }
+ 
+
+}
+
+
+@media (min-width: 1400px) {
+    .container {
+        flex-direction: row;
+    }
+
+    aside {
+        width: 35%;
+    }
+
+    main {
+        width: 85%;
+      
+    }
+
+    .div_main{
+        height: 80%;
+    }
+    section{        
+    display: flex;
+    flex-grow: 3;
+    height: 300px;
+    }
+
+    .tarefa_container{
+        display: flex;
+        align-self: center;
+        height: 200px;
+        width: 340px;
+    }
+}
+
+
+
