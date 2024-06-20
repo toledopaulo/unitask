@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="../css/index.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='index.css') }}"" rel="stylesheet">
     <link href="#" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,13 +12,13 @@
 </head>
 <body>
     <nav class="nav_bar"> 
-        <img src="../unitasklogo.png" height="30px">
+        <img src="{{ url_for('static', filename='unitasklogo.png') }}" height="30px">
         <div class="botoes_navbar"> 
             <span> PLANOS</span>
             <span> FUNCIONALIDADES</span>
             <span> SOLUÇÕES</span>
         </div>
-        <a href="crie_conta.html" class="botao_comeceagora"> COMECE AGORA </a> 
+        <a href="/criar-conta" class="botao_comeceagora"> COMECE AGORA </a> 
     
     </nav>
 
@@ -37,8 +37,8 @@
     </main>
 
     <div class="botoes"> 
-        <a href="crie_conta.html" class="botao1"> SOLICITE UM ORÇAMENTO  </a>
-        <a href="crie_conta.html" class="botao2">  SOLICITE UMA DEMONSTRAÇÃO </a>
+        <a href="/criar-conta" class="botao1"> SOLICITE UM ORÇAMENTO  </a>
+        <a href="/criar-conta" class="botao2">  SOLICITE UMA DEMONSTRAÇÃO </a>
     </div>
 
     <div class="div_branca"> 
