@@ -8,13 +8,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
     <nav> 
-        <a href="dashboard.html" > <img src="{{ url_for('static', filename='unitasklogo.png') }}" height="30px"> </a>
+        <a href="/dashboard" > <img src="{{ url_for('static', filename='unitasklogo.png') }}" height="30px"> </a>
         
-            <a href="minha_conta.html" > <svg width="50" height="58" viewBox="0 0 50 58" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <a href="/minha-conta" > <svg width="50" height="58" viewBox="0 0 50 58" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="50" height="58" fill="url(#pattern0_256_54)"/>
                 <defs>
                 <pattern id="pattern0_256_54" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -27,7 +29,7 @@
     </nav>
 
     <div class="container">
-        <aside> 
+        <aside id="todas_tarefas"> 
             <div class="div_andamento"> 
                 <p> Fazer o dever</p>
                     <div class="div_botoes">
@@ -107,18 +109,79 @@
                 
                 <div class="tarefa_container">
                     <h3> Tarefas em andamento </h3>
-                    <p class="numero"> 2</p>
+                    <p class="numero" id="tarefas_andamento_counter"> 0 </p>
                 </div>
                 <div  class="tarefa_container">
                     <h3> Tarefas concluídas </h3>
-                    <p  class="numero"> 1</p>
+                    <p  class="numero" id="tarefas_concluidas_counter"> 0 </p>
                 </div>
                 <div class="tarefa_container">
                     <h3> Total de tarefas </h3>
-                    <p  class="numero"> 3 </p>
+                    <p  class="numero" id="total_de_tarefas_counter"> 0 </p>
                 </div>
             </section>
         </main>
     </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        updateTarefasCounter()
+
+        function updateTarefasCounter() {
+            let counter_total_tarefas = document.getElementById("total_de_tarefas_counter");
+            let counter_tarefas_concluidas = document.getElementById("tarefas_concluidas_counter");
+            let counter_tarefas_em_andamento = document.getElementById("tarefas_andamento_counter")
+            let count_concluidas = document.querySelectorAll('#todas_tarefas div.div_concluido').length;
+            let count_andamento = document.querySelectorAll('#todas_tarefas div.div_andamento').length;
+            let count_total = count_concluidas + count_andamento
+            
+            counter_total_tarefas.innerHTML = count_total;
+            counter_tarefas_concluidas.innerHTML = count_concluidas;
+            counter_tarefas_em_andamento.innerHTML = count_andamento;
+        }
+
+        function getTarefas(idUsuario) {
+            let tarefas_div = document.getElementById("todas_tarefas")
+            axios.get("http://localhost:5000/api/v1/get-tarefas").then(res => {
+                let response = res.data.reverse();
+                for (i =0; i < response.length; i++) {
+                    if(response[i]["concluida"] == false) {
+                        tarefas_div += `
+                        <div class="div_andamento"> 
+                            <p>${response[i]["titulo"]}</p>
+                                <div class="div_botoes">
+                                    <button class="excluir"> x </button>
+                                    <button class="concluir"> ✓ </button>
+                                </div>
+                        </div>
+                    `
+                    } else {
+                        tarefas_div += `
+                        <div class="div_concluido"> 
+                            <p>${response[i]["titulo"]}</p>
+                            <div class="div_botaoconcluido"> 
+                                <p> Concluído</p>
+                            </div>
+                        </div>
+                    `
+                    }
+
+                }
+            })
+            
+
+        }
+
+        function deleteTarefa(tarefaId) {
+            return
+        }
+        function concluirTarefa(tarefaId) {
+            return
+        }
+
+        function criarTarefa(tituloTarefa, descricaoTarefa="") {
+
+        }
+
+    </script>
 </body>
 </html>

@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body> 
@@ -17,14 +19,71 @@
     <main>
         
         <h2> Crie uma conta</h2>
-            <form action="/submit" method="post">
+            <form id="formRegister">
                 <input type="text" id="nome" name="nome" placeholder="Nome completo*">
-                <input type="text" id="instituicao" name="instituicao" placeholder="Tipo de Instituição*">
-                <input type="email" id="email" name="email" placeholder="Email*">
-                <input type="password" id="senha" name="senha" placeholder="Senha*">
-                
-                <a href="dashboard.html">  <input type="submit" value="Criar Conta"></a>
-        
-        
+                <input type="text" id="instituicao" name="instituicao" placeholder="Nome da Instituição *">
+                <input type="email" id="email" name="email" placeholder="Email *">
+                <input type="password" id="senha" name="senha" placeholder="Senha *">
+                <br>
+                <a href="/login">Já tenho uma conta</a>
+                <Br>
+                <button type="button" onclick="sendData()">Criar conta</button>
+            </form>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+            <script>
+            </script>
+            <script>
+                function sendData() {
+                    console.log("teste")
+                    const nome = document.getElementById('nome').value;
+                    const email = document.getElementById('email').value;
+                    const senha = document.getElementById('senha').value;
+                    const instituicao = document.getElementById('instituicao').value;
+                    console.log(nome)
+                    const data = {
+                        "nome": nome,
+                        "email": email,
+                        "senha": senha,
+                        "instituicao": instituicao
+                    };
+                    axios.post('http://127.0.0.1:5000/api/v1/register', data)
+                        .then(response => {
+                            Toastify({
+                                text: "Conta criada com sucesso, redirecionando para login...",
+                                duration: 3000,
+                                newWindow: true,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
+                            console.log('Sucesso:', response.data);
+                            setTimeout(function() {
+                                window.location.replace("http://127.0.0.1:5000/login")
+                            }, 2500);
+                        })
+                        .catch(error => {
+                            Toastify({
+                                text: "ERRO: " + error,
+                                duration: 60000,
+                                newWindow: true,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "linear-gradient(to right, #eb3349, #f45c43);",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
+                            console.error('Erro:', error);
+                        });
+                }
+            </script>
+
     </main>
 </body>

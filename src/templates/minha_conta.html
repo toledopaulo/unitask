@@ -8,10 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body> 
     <nav> 
-        <a href="dashboard.html" > <img src="{{ url_for('static', filename='unitasklogo.png') }}" height="30px"> </a>
+        <a href="/dashboard" > <img src="{{ url_for('static', filename='unitasklogo.png') }}" height="30px"> </a>
         <a href="#">
             <svg width="50" height="58" viewBox="0 0 50 58" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="50" height="58" fill="url(#pattern0_256_54)"/>
@@ -30,13 +31,13 @@
 
         <section>
             <div> 
-                <p> Nome Completo:</p> <div class="espaco_branco"> XXXXXXX XX XXXXXXX </div>
+                <p> Nome Completo:</p> <div class="espaco_branco" id="nomeCompleto"> {{ nomeCompleto }} </div>
             </div>
             <div> 
-                <p> Email: </p> <div class="espaco_branco"> XXXXXXXXXX@XXXXXX.COM </div>
+                <p> Email: </p> <div class="espaco_branco" id="email"> {{ email }} </div>
             </div>
             <div> 
-                <p> Tipo de Insituição: </p> <div class="espaco_branco"> XXXXXXXXXX </div>
+                <p> Nome da Insituição: </p> <div class="espaco_branco" id="tipoInstituicao"> {{ nomeInstituicao }} </div>
             </div>
         </section>
 

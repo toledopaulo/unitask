@@ -17,13 +17,14 @@
     <main> 
         <div class="div_main">
              <h2> LOGIN</h2>
-                <form action="/submit" method="post">
-                    <input type="text" id="nome" name="usuario" placeholder="Usuário">
+                <form action="/login" method="post">
+                    <input type="email" id="nome" name="email" placeholder="E-mail">
                     <input type="password" id="senha" name="senha" placeholder="Senha">
-                    <a class="esqueci_senha" href="recu_senha.html" > <br> Esqueci minha senha</a>
+                    <a class="esqueci_senha" href="/recuperar-senha" > <br> Esqueci minha senha</a>
+                    <a class="esqueci_senha" href="/criar-conta" > <br> Criar uma conta</a>
                     
                     <div class="div_senha">
-                       <a href="dashboard.html"> <input type="submit" value="Entrar"> </a>
+                       <input type="submit" value="Entrar">
                     </div>
          </div>
         

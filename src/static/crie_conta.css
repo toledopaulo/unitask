@@ -120,6 +120,18 @@ input[type="submit"]:hover {
     background-color: #218838;
 }
 
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
 
 
 /* RESPONSIVIDADE */
@@ -174,6 +186,10 @@ input[type="submit"]:hover {
     input[type="email"],
     input[type="password"],
     input[type="submit"] {
+        width: auto;
+        margin-left: 0;
+    }
+    button {
         width: auto;
         margin-left: 0;
     }
