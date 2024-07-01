@@ -8,21 +8,63 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <input id="tokenRecuperacao" value="{{ token }}" hidden="true">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <input id="emailUsuario" value="{{ email }}" hidden="true">
 </head>
-
 <body> 
     <aside> 
         <h1> MELHORE A GESTÃO <br> DE TAREFAS DA SUA <br> INSTITUIÇÃO!</h1>
     </aside>
     <div class="recuperacao">      
         <h2> Recuperar de Senha </h2>
-            <form action="/submit" method="post">
+            <form>
                 <input type="password" id="senha" name="Senha" placeholder="Nova Senha*">
-                <input type="password" id="senha" name="Senha" placeholder="Repita a Senha*">
-         
-                <input type="submit" value="Salvar">
-        
+                <input type="password" id="senha2" name="Senha" placeholder="Repita a Senha*">
+                <button type="button" onclick="enviarNovaSenha()">Alterar senha</button>
             </div>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        function enviarNovaSenha() {
+            if (senha.value != senha2.value) {
+                console.log(senha, senha2)
+                Toastify({
+                    text: "ERRO: As senhas inseridas não coincidem",
+                    duration: 60000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "rgb(255,0,0)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+            } else {
+                let data = {"novaSenha": senha, "email": document.getElementById("emailUsuario").value}
+                axios.post("http://localhost:5000/api/v1/alterar-senha", data).then(res => {
+                    Toastify({
+                        text: "Senha alterada com sucesso, redirecionado pra página de login...",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    setTimeout(function() {
+                        window.location.replace("http://localhost:5000/login")
+                    }, 1500);
+                })
+            }
+        }
+    </script>
             
 </body>

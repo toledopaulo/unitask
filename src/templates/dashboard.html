@@ -15,7 +15,7 @@
 <body>
     <nav> 
         <a href="/dashboard" > <img src="{{ url_for('static', filename='unitasklogo.png') }}" height="30px"> </a>
-        
+            <a href="/logout">SAIR</a>
             <a href="/minha-conta" > <svg width="50" height="58" viewBox="0 0 50 58" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <rect width="50" height="58" fill="url(#pattern0_256_54)"/>
                 <defs>
@@ -30,69 +30,6 @@
 
     <div class="container">
         <aside id="todas_tarefas"> 
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-            <div class="div_andamento"> 
-                <p> Fazer o dever</p>
-                    <div class="div_botoes">
-                        <button class="excluir"> x </button>
-                        <button class="concluir"> ✓ </button>
-                    </div>
-            </div>
-
-            <div class="div_concluido"> 
-                <p> Fazer o dever 2</p>
-                <div class="div_botaoconcluido"> 
-                    <p> Concluído</p>
-                </div>
-            </div>
         </aside>
 
         <main> 
@@ -101,7 +38,8 @@
                     <div class="escreva_tarefa"> 
                         <h2> Adicionar Tarefa:</h2>
                         <p> Adicione uma tarefa por vez</p>
-                        <input  type="text" placeholder="Escreva a Tarefa*">
+                        <input id="input-titulo-tarefa"type="text" placeholder="Escreva a Tarefa*">
+                        <button onclick="criarTarefa()">Criar Tarefa</button>
                     </div>
             </div>
 
@@ -124,8 +62,7 @@
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
-        updateTarefasCounter()
-
+        getTarefas()
         function updateTarefasCounter() {
             let counter_total_tarefas = document.getElementById("total_de_tarefas_counter");
             let counter_tarefas_concluidas = document.getElementById("tarefas_concluidas_counter");
@@ -138,48 +75,161 @@
             counter_tarefas_concluidas.innerHTML = count_concluidas;
             counter_tarefas_em_andamento.innerHTML = count_andamento;
         }
+        function getTarefas() {
+            let tarefas_div = document.getElementById("todas_tarefas");
+            // Limpa o conteúdo da div antes de adicionar as tarefas novamente
+            tarefas_div.innerHTML = "";
 
-        function getTarefas(idUsuario) {
-            let tarefas_div = document.getElementById("todas_tarefas")
             axios.get("http://localhost:5000/api/v1/get-tarefas").then(res => {
-                let response = res.data.reverse();
-                for (i =0; i < response.length; i++) {
-                    if(response[i]["concluida"] == false) {
-                        tarefas_div += `
-                        <div class="div_andamento"> 
-                            <p>${response[i]["titulo"]}</p>
-                                <div class="div_botoes">
-                                    <button class="excluir"> x </button>
-                                    <button class="concluir"> ✓ </button>
-                                </div>
+                let response = res.data;
+                for (let i = 0; i < res.data["tarefas"].length; i++) {
+                    if (response["tarefas"][i]["tarefaConcluida"] == false) {
+                        tarefas_div.innerHTML += `
+                        <div class="div_andamento" id="tarefa-${response["tarefas"][i]["idTarefa"]}"> 
+                            <p>${response["tarefas"][i]["tituloTarefa"]}</p>
+                            <div class="div_botoes">
+                                <button class="excluir" id="excluir-btn" onclick="deleteTarefa(${response["tarefas"][i]["idTarefa"]})"> x </button>
+                                <button class="concluir" id="concluir-btn" onclick="concluirTarefa(${response["tarefas"][i]["idTarefa"]})"> ✓ </button>
+                            </div>
                         </div>
-                    `
+                        `;
                     } else {
-                        tarefas_div += `
-                        <div class="div_concluido"> 
-                            <p>${response[i]["titulo"]}</p>
+                        tarefas_div.innerHTML += `
+                        <div class="div_concluido" id="tarefa-${response["tarefas"][i]["idTarefa"]}"> 
+                            <p>${response["tarefas"][i]["tituloTarefa"]}</p>
                             <div class="div_botaoconcluido"> 
                                 <p> Concluído</p>
                             </div>
                         </div>
-                    `
+                        `;
                     }
-
                 }
-            })
-            
+            }).catch(error => {
+                console.error('Erro ao obter tarefas:', error);
+            });
 
+            updateTarefasCounter();
         }
 
         function deleteTarefa(tarefaId) {
-            return
+            let payload = {"idTarefa": tarefaId}
+            axios.delete('http://localhost:5000/api/v1/delete-tarefa', { data: payload, headers: {"Content-Type": "application/json"} })
+            .then(response => {
+                Toastify({
+                    text: "Tarefa excluída com sucesso!",
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+                console.log('Sucesso:', response.data);
+            })
+            .catch(error => {
+                Toastify({
+                    text: "ERRO: " + error,
+                    duration: 60000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #eb3349, #f45c43);",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+                console.error('Erro:', error);
+            });
+            updateTarefasCounter();
+            getTarefas();
         }
         function concluirTarefa(tarefaId) {
-            return
+            let data = {"idTarefa": tarefaId}
+            axios.post('http://localhost:5000/api/v1/concluir-tarefa', data)
+            .then(response => {
+                Toastify({
+                    text: "Tarefa concluída com sucesso!",
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+                console.log('Sucesso:', response.data);
+                updateTarefasCounter();
+                getTarefas();
+            })
+            .catch(error => {
+                Toastify({
+                    text: "ERRO: " + error,
+                    duration: 60000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #eb3349, #f45c43);",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+                console.error('Erro:', error);
+            });
         }
 
-        function criarTarefa(tituloTarefa, descricaoTarefa="") {
-
+        function criarTarefa() {
+            let input_tarefa = document.getElementById("input-titulo-tarefa");
+            let titulo_tarefa = input_tarefa.value;
+            const data = {
+                "titulo": titulo_tarefa
+            }
+            axios.post('http://localhost:5000/api/v1/add-new-tarefa', data)
+            .then(response => {
+                Toastify({
+                    text: "Nova tarefa adicionada com sucesso!",
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+                console.log('Sucesso:', response.data);
+                getTarefas();
+                updateTarefasCounter();
+            })
+            .catch(error => {
+                Toastify({
+                    text: "ERRO: " + error,
+                    duration: 60000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #eb3349, #f45c43);",
+                    },
+                    onClick: function(){} // Callback after click
+                }).showToast();
+                console.error('Erro:', error);
+            });
+            
         }
 
     </script>

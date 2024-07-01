@@ -168,6 +168,16 @@ h2{
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombreamento */
 }
 
+#concluir-btn:hover {
+    cursor: pointer;
+    background-color: rgb(3, 158, 3);
+}
+
+#excluir-btn:hover {
+    cursor: pointer;
+    background-color: rgb(155, 2, 2);
+}
+
 section {
     display: flex;
     background-color: #ffffff; /* Cor de fundo para visualizar a seção */

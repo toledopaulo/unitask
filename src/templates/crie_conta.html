@@ -46,7 +46,7 @@
                         "senha": senha,
                         "instituicao": instituicao
                     };
-                    axios.post('http://127.0.0.1:5000/api/v1/register', data)
+                    axios.post('http://localhost:5000/api/v1/register', data)
                         .then(response => {
                             Toastify({
                                 text: "Conta criada com sucesso, redirecionando para login...",
@@ -63,7 +63,7 @@
                             }).showToast();
                             console.log('Sucesso:', response.data);
                             setTimeout(function() {
-                                window.location.replace("http://127.0.0.1:5000/login")
+                                window.location.replace("http://localhost:5000/login")
                             }, 2500);
                         })
                         .catch(error => {

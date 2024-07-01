@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body> 
@@ -17,10 +19,47 @@
     <div class="recuperacao">      
         <h2> Recuperar de Senha </h2>
         <p> Informe seu Email utilizado <br>e enviaremos um link de <br> recuperação de senha.</p>
-            <form action="/recovery-password" method="post">
+            <form>
                 <input type="email" id="email" name="email" placeholder="Email*">
-            
-                <input type="submit" value="Enviar Link">
-        
+                <button id="enviar-link-btn" type=button onclick="submitRecovery()">Enviar link</button>
             </div>
+        
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script>
+            function submitRecovery() {
+                let data = {"email": document.getElementById("email").value}
+                axios.post("http://localhost:5000/api/v1/gerar-recuperacao-de-senha", data)
+                .then(response => {
+                            Toastify({
+                                text: "Link para recuperação de senha enviado para: " + document.getElementById("email").value,
+                                duration: 3000,
+                                newWindow: true,
+                                close: true,
+                                gravity: "top", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
+                        })
+                .catch(error => {
+                    Toastify({
+                        text: "ERRO: " + error,
+                        duration: 60000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "linear-gradient(to right, #eb3349, #f45c43);",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    console.error('Erro:', error);
+                });
+            }
+        </script>
 </body>
